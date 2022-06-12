@@ -1,8 +1,12 @@
 const express = require('express');
 const multer = require('multer');
+const cors = require('cors');
 var path = require('path');
 
 const app = express();
+
+app.use(express.json());
+app.use(cors());
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -41,7 +45,7 @@ function checkFileType(file, cb) {
 }
 
 app.post("/upload", upload, (req, resp) => {
-    resp.send("File Uplaod");
+    resp.send(JSON.stringify({ "success": "File Uploaded" }));
 });
 
 app.listen(5000);
